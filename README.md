@@ -1,8 +1,7 @@
 # Markdown Links
 
-##Primer diagrama de flujo
+## Primer diagrama de flujo Api
 
-[![Diagrama-de-flujo-Md-links-Copy-2.jpg](https://i.postimg.cc/rmFqGRQG/Diagrama-de-flujo-Md-links-Copy-2.jpg)](https://postimg.cc/4KqCsyCn)
-
+[![Diagrama-de-flujo-Md-links-primer-borrador-JS-api.png](https://i.postimg.cc/652VGddG/Diagrama-de-flujo-Md-links-primer-borrador-JS-api.png)](https://postimg.cc/F7vkMkC9)
 
 ## 2. Resumen del proyecto
