@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "mdlinks",
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
@@ -8,5 +8,33 @@
     "createdAt": "2023-02-07T18:15:01.196Z",
     "version": "5.5.0",
     "commit": "a63a770ea33332882790401851df337734b0b734"
-  }
+  },
+  "dependencies": {
+    "jest": "^29.5.0"
+  },
+  "description": "[![Diagrama-de-flujo-Md-links-Copy-2.jpg](https://i.postimg.cc/rmFqGRQG/Diagrama-de-flujo-Md-links-Copy-2.jpg)](https://postimg.cc/4KqCsyCn)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natnatnada/DEV003-md-links.git"
+  },
+  "keywords": [
+    "[",
+    "\"links\"",
+    "\"paths\"",
+    "\"promise\"]"
+  ],
+  "author": "Natalia aspee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Natnatnada/DEV003-md-links/issues"
+  },
+  "homepage": "https://github.com/Natnatnada/DEV003-md-links#readme"
 }
