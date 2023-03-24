@@ -1,21 +1,22 @@
 //importe desde index
 const { mdLinks } = require('../index.js')
-const { isValidPath,
+const { isAexistingPath,
   isAbsolutePath,
-  convertToAbsolute
+  convertToAbsolute,
+  isAmdFile
 } = require('../functionsApi')
 //revisar test proyecto2
 //deberia retornar false si la ruta no existe,  este caso
-describe('isValidPath', () => {
+describe('isAexistingPath', () => {
   it('Deberia retornar false .', () => {
     //ruta falsa
     const path = 'READMEUNO.md'
-    expect(isValidPath(path)).toBe(false)
+    expect(isAexistingPath(path)).toBe(false)
   });
   it('Deberia retornar true .', () => {
     //ruta verdadera
     const path = 'README.md'
-    expect(isValidPath(path)).toBe(true)
+    expect(isAexistingPath(path)).toBe(true)
   });
 });
 
@@ -32,9 +33,15 @@ describe('isAbsolutePath', () => {
 describe('convertToAbsolute', () => {
   it('Deberia retornar la ruta absoluta.', () => {
     const path = './pruebauno/archivoprueba.md'
-    //dobre backslash para que tome la ruta
+    //doble backslash para que tome la ruta
     expect(convertToAbsolute(path)).toBe('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
-  })
+  });
+});
+describe('isAmdFile',() => {
+it('Deberia retornar  extension .md',() =>{
+const path = 'archivoprueba.md'
+expect(isAmdFile(path)).toBe('.md')
+});
 });
 
 // describe('mdLinks', () => {
