@@ -1,11 +1,10 @@
 //se importa el modulo file system module
 const {
-isAexistingPath,
-isAbsolutePath,
-convertToAbsolute,
-isAmdFile,
+  isAexistingPath,
+  isAbsolutePath,
+  convertToAbsolute,
 
-}  = require('./functionsApi');
+} = require('./functionsApi');
 
 //necesita como parametros path y opciones
 const mdLinks = (path, options) => {

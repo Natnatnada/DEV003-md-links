@@ -3,7 +3,7 @@
 const { isAexistingPath,
   isAbsolutePath,
   convertToAbsolute,
-  isAmdFile,
+  fileExtension,
   isDirectory
 } = require('../functionsApi')
 //revisar test proyecto2
@@ -40,20 +40,20 @@ describe('convertToAbsolute', () => {
   });
 });
 
-describe('isAmdFile', () => {
+describe('fileExtension', () => {
   it('Deberia retornar si es extension .md', () => {
     const path = 'archivoprueba.md'
-    expect(isAmdFile(path)).toBe('.md')
+    expect(fileExtension(path)).toBe('.md')
   });
 });
 
-describe('isDirectory',() => {
-it('Deberia retornar true', () =>{
-  const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
-  expect(isDirectory(path)).toBe(true)
-})
-it('Deberia retornar false', () =>{
-  const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
-  expect(isDirectory(path)).toBe(false)
-})
+describe('isDirectory', () => {
+  it('Deberia retornar true', () => {
+    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
+    expect(isDirectory(path)).toBe(true)
+  })
+  it('Deberia retornar false', () => {
+    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+    expect(isDirectory(path)).toBe(false)
+  })
 });
