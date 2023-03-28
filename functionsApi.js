@@ -73,6 +73,7 @@ module.exports = {
     fileExtension,
     readFiles,
     isDirectory,
-    readDirContent
+    readDirContent,
+    
     //aqui se indican las rutas que se estan exportando para luego usar en mdlinks
 };
