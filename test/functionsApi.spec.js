@@ -1,19 +1,20 @@
 //importe desde index
-const { mdLinks } = require('../index.js')
+
 const { isAexistingPath,
   isAbsolutePath,
   convertToAbsolute,
-  isAmdFile
+  isAmdFile,
+  isDirectory
 } = require('../functionsApi')
 //revisar test proyecto2
 //deberia retornar false si la ruta no existe,  este caso
 describe('isAexistingPath', () => {
-  it('Deberia retornar false .', () => {
+  it('Deberia retornar false para el path READMEUNO.md.', () => {
     //ruta falsa
     const path = 'READMEUNO.md'
     expect(isAexistingPath(path)).toBe(false)
   });
-  it('Deberia retornar true .', () => {
+  it('Deberia retornar true para el path.', () => {
     //ruta verdadera
     const path = 'README.md'
     expect(isAexistingPath(path)).toBe(true)
@@ -30,6 +31,7 @@ describe('isAbsolutePath', () => {
     expect(isAbsolutePath(path)).toBe(false)
   });
 });
+
 describe('convertToAbsolute', () => {
   it('Deberia retornar la ruta absoluta.', () => {
     const path = './pruebauno/archivoprueba.md'
@@ -37,22 +39,21 @@ describe('convertToAbsolute', () => {
     expect(convertToAbsolute(path)).toBe('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
   });
 });
-describe('isAmdFile',() => {
-it('Deberia retornar  extension .md',() =>{
-const path = 'archivoprueba.md'
-expect(isAmdFile(path)).toBe('.md')
+
+describe('isAmdFile', () => {
+  it('Deberia retornar si es extension .md', () => {
+    const path = 'archivoprueba.md'
+    expect(isAmdFile(path)).toBe('.md')
+  });
 });
+
+describe('isDirectory',() => {
+it('Deberia retornar true', () =>{
+  const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
+  expect(isDirectory(path)).toBe(true)
+})
+it('Deberia retornar false', () =>{
+  const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+  expect(isDirectory(path)).toBe(false)
+})
 });
-
-// describe('mdLinks', () => {
-
-//   it('debería ser una función', () => {
-//     expect(typeof mdLinks).toBe('function');
-//   });
-//   it('Debe rechazar si el path no existe', () => {
-//     return mdLinks('/lab/proyecto/noexiste.md').catch((error) => {
-//       expect(error).toBe('La ruta no existe')
-//     });
-//   });
-
-// });
