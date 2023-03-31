@@ -1,5 +1,6 @@
 // //se importa node file system module, interact with the file system. para acceder a los metodos   
 // work synchronously by appending Sync *
+const { error } = require('console');
 const fs = require('fs')
 //se importa node path module
 const path = require('path')
@@ -25,10 +26,10 @@ function convertToAbsolute(docpath) {
 
 //obtiene la extension del archivo retorna string path.extname(path)
 function fileExtension(docpath) {
-    return path.extname(docpath)
+    return path.extname(docpath) === '.md';
 };
-//console.log(fileExtension('./pruebauno/archivoprueba.md'))
-//console.log(fileExtension('./pruebauno/falso.js'))
+// console.log(fileExtension('./pruebauno/archivoprueba.md'))
+// console.log(fileExtension('./pruebauno/falso.js'))
 
 //leer archivo fs.readFile (path[, encoding options], callback)  ‘utf8’.
 //optimizar codigo function(error data)
@@ -46,7 +47,35 @@ function readFiles(docpath) {
     })
 
 };
-readFiles('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((data) => console.log(data))
+//readFiles('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((data) => console.log(data))
+
+const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
+    const arraOfLinks = []; //array vacio para almacenar los link extraidos
+    //funcion readFiles
+    readFiles(docpath)
+        //data from readFile
+        .then((data) => {
+            //se define pattern para la obtencion de los links [] y https
+            // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
+            const patternLinks = /\[(.+?)\]\((https?:\/\/[^\s]+)\)/g;
+            let isAmatch = patternLinks.exec(data);
+            //null si no encuentra coincidencias con isAmatch se ejecuta ciclo
+            while (isAmatch !== null) {
+                //
+                arraOfLinks.push({
+                    href: isAmatch[2],
+                    text: isAmatch[1],
+                    file: docpath,
+                });
+                isAmatch = patternLinks.exec(data);
+            }
+            (resolve(arraOfLinks));
+        })
+        .catch((error) => reject(error));
+});
+getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((linklink) => console.log(" es", linklink))
+
+
 
 //saber si es un directorio fs.lstatSync o fs.statSync .isDirectory
 function isDirectory(docpath) {
@@ -55,14 +84,8 @@ function isDirectory(docpath) {
 }
 //console.log(isDirectory('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'))
 
-//leer  el contenido de un directorio readdirSync.  returns an array of String
-function readDirContent(docpath) {
-    return fs.readdirSync(docpath)
-};
-console.log(readDirContent('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'))
-//recorrer directorio en busca de archivos forEach
-
-//extraer los archivos promesa?
+//recorrer directorio en busca de archivos
+//extraer los archivos ?
 
 //El valor de retorno de nuestra librería es una Promesa, no un Array.
 
@@ -73,7 +96,6 @@ module.exports = {
     fileExtension,
     readFiles,
     isDirectory,
-    readDirContent,
-    
+
     //aqui se indican las rutas que se estan exportando para luego usar en mdlinks
 };

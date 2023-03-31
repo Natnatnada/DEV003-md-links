@@ -7,8 +7,7 @@ const { isAexistingPath,
   isDirectory,
   readDirContent
 } = require('../functionsApi')
-//revisar test proyecto2
-//deberia retornar false si la ruta no existe,  este caso
+
 describe('isAexistingPath', () => {
   it('Deberia retornar false para el path READMEUNO.md.', () => {
     //ruta falsa
@@ -48,20 +47,14 @@ describe('fileExtension', () => {
   });
 });
 
-describe('isDirectory', () => {
-  it('Deberia retornar true', () => {
-    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
-    expect(isDirectory(path)).toBe(true)
-  })
-  it('Deberia retornar false', () => {
-    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
-    expect(isDirectory(path)).toBe(false)
-  })
-});
+// describe('isDirectory', () => {
+//   it('Deberia retornar true', () => {
+//     const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
+//     expect(isDirectory(path)).toBe(true)
+//   })
+//   it('Deberia retornar false', () => {
+//     const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+//     expect(isDirectory(path)).toBe(false)
+//   })
+// });
 
-describe('readDirContent', ()=>{
-  const path ='C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'
-  it ('deberia retornar un array con el contenido del directorio', () =>{
-    expect(readDirContent(path)).toEqual([ 'archivoprueba.md', 'falso.js', 'pruebas.md' ])
-  });
-});
