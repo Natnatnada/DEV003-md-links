@@ -43,7 +43,7 @@ describe('convertToAbsolute', () => {
 describe('fileExtension', () => {
   it('Deberia retornar si es extension .md', () => {
     const path = 'archivoprueba.md'
-    expect(fileExtension(path)).toBe('.md')
+    expect(fileExtension(path)).toBe(true)
   });
 });
 

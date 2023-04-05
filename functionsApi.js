@@ -1,9 +1,10 @@
 // //se importa node file system module, interact with the file system. para acceder a los metodos   
 // work synchronously by appending Sync *
-const { error } = require('console');
-const fs = require('fs')
+
+const fs = require('fs');
 //se importa node path module
-const path = require('path')
+const path = require('path');
+
 
 //para saber si una ruta existe fs.existsSync(path) retorna un booleano// fs.exists deprecated
 function isAexistingPath(docpath) {
@@ -50,7 +51,7 @@ function readFiles(docpath) {
 //readFiles('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((data) => console.log(data))
 
 const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
-    const arraOfLinks = []; //array vacio para almacenar los link extraidos
+    const arrayOfLinks = []; //array vacio para almacenar los link extraidos
     //funcion readFiles
     readFiles(docpath)
         //data from readFile
@@ -62,32 +63,69 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
             //null si no encuentra coincidencias con isAmatch se ejecuta ciclo
             while (isAmatch !== null) {
                 //
-                arraOfLinks.push({
-                    href: isAmatch[2],
+                arrayOfLinks.push({
                     text: isAmatch[1],
+                    href: isAmatch[2],
                     file: docpath,
                 });
                 isAmatch = patternLinks.exec(data);
             }
-            (resolve(arraOfLinks));
+            (resolve(arrayOfLinks));
         })
         .catch((error) => reject(error));
 });
-getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((linklink) => console.log(" es", linklink))
+getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
 
+// //debe tomar el array de links
+// const validateLinksFromFile = (arrayLinks) => {
+//     const getStatus = arrayLinks.map((link) => {
+//         return fetch(link.href)
+//             .then((resolveLink) => {
+//                 const status = {
+//                     href: link.href,
+//                     file: link.file,
+//                     status: resolveLink.status,
+//                     message: "status",
 
+//                 };
+//                 return status;
+//             }).catch((error) => {
+//                 const statusError = {
+//                     href: link.href,
+//                     file: link.file,
+//                     status: 'fail',
+//                     message: error,
+
+//                 };
+//                 return statusError;
+//             });
+//     });
+//     return Promise.all(getStatus);
+// };
+
+// validateLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((resultados) => console.log("status", resultados))
+
+// const validateLinksFromFile= (linksFromFile) => new Promise ((resolve, reject) =>{}
+// )
+
+//validate links
+// href:
+// text: 
+// file:
+// status: 
+// message:
 
 //saber si es un directorio fs.lstatSync o fs.statSync .isDirectory
-function isDirectory(docpath) {
-    return fs.statSync(docpath).isDirectory()
 
-}
+// function isDirectory(docpath) {
+//     return fs.statSync(docpath).isDirectory()
+
+// }
 //console.log(isDirectory('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'))
 
 //recorrer directorio en busca de archivos
 //extraer los archivos ?
 
-//El valor de retorno de nuestra librería es una Promesa, no un Array.
 
 module.exports = {
     isAexistingPath,
@@ -95,7 +133,7 @@ module.exports = {
     convertToAbsolute,
     fileExtension,
     readFiles,
-    isDirectory,
+    getLinksFromFile,
 
     //aqui se indican las rutas que se estan exportando para luego usar en mdlinks
 };
