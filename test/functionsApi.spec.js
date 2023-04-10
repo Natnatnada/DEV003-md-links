@@ -48,10 +48,10 @@ describe('fileExtension', () => {
   });
 });
 
-describe('getLinksFromFile',() =>{
+describe('getLinksFromFile', () => {
   it('Deberia extrar los enlaces http de archivos .md', () => {
-    const path= 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
-    const testLink= [
+    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+    const testLink = [
       {
         text: 'Node Fs module',
         href: 'http://bit.ly/42PEvGE',
@@ -73,7 +73,10 @@ describe('getLinksFromFile',() =>{
         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
       }
     ]
-    expect(getLinksFromFile(path)).toEqual(testLink)
+    return getLinksFromFile(path).then(link => {
+      expect(link).toEqual(testLink)
+    })
+
     //promesa then ?
   });
 });
