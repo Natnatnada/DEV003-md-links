@@ -5,7 +5,8 @@ const { isAexistingPath,
   convertToAbsolute,
   fileExtension,
   isDirectory,
-  readDirContent
+  readDirContent,
+  getLinksFromFile
 } = require('../functionsApi')
 
 describe('isAexistingPath', () => {
@@ -44,6 +45,36 @@ describe('fileExtension', () => {
   it('Deberia retornar si es extension .md', () => {
     const path = 'archivoprueba.md'
     expect(fileExtension(path)).toBe(true)
+  });
+});
+
+describe('getLinksFromFile',() =>{
+  it('Deberia extrar los enlaces http de archivos .md', () => {
+    const path= 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+    const testLink= [
+      {
+        text: 'Node Fs module',
+        href: 'http://bit.ly/42PEvGE',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      },
+      {
+        text: 'Node Path module',
+        href: 'https://bit.ly/3Kgry1C',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      },
+      {
+        text: 'otherLink',
+        href: 'https://google.com',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      },
+      {
+        text: 'Using the File System module (‘fs’) in Node.js',
+        href: 'http://bit.ly/3Zygdyn',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      }
+    ]
+    expect(getLinksFromFile(path)).toEqual(testLink)
+    //promesa then ?
   });
 });
 

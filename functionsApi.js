@@ -74,39 +74,44 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
         })
         .catch((error) => reject(error));
 });
-getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
+//getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
+//promesas anidadas
+// //debe tomar el array de links? tomo objetos en vez de array ? // map para nuevo array o forEach
+// prueba  array vacio,  const link = getLinksFromFile(docpath) 
 
-// //debe tomar el array de links
-// const validateLinksFromFile = (arrayLinks) => {
-//     const getStatus = arrayLinks.map((link) => {
-//         return fetch(link.href)
-//             .then((resolveLink) => {
-//                 const status = {
-//                     href: link.href,
-//                     file: link.file,
-//                     status: resolveLink.status,
-//                     message: "status",
+const validateLinksFromFile = (arrayLinks) => {
+    const getStatus = arrayLinks.map((link) => {
+        return fetch(link.href)
+            .then((resolveLink) => {
+                const status = {
+                    href: link.href,
+                    file: link.file,
+                    text: link.text,
+                    status: resolveLink.status,
+                    message: 'Ok',
 
-//                 };
-//                 return status;
-//             }).catch((error) => {
-//                 const statusError = {
-//                     href: link.href,
-//                     file: link.file,
-//                     status: 'fail',
-//                     message: error,
+                };
+                return status;
+            }).catch((error) => {
+                const statusError = {
+                    href: link.href,
+                    file: link.file,
+                    text: link.text,
+                    status: error.status ,
+                    message: 'fail',
 
-//                 };
-//                 return statusError;
-//             });
-//     });
-//     return Promise.all(getStatus);
-// };
-
-// validateLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((resultados) => console.log("status", resultados))
-
-// const validateLinksFromFile= (linksFromFile) => new Promise ((resolve, reject) =>{}
-// )
+                };
+                return statusError;
+            });
+    });
+    return Promise.all(getStatus);
+};
+//promesas anidadas
+getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
+    .then((datosdatos) => {
+        console.log(" es", datosdatos)
+        validateLinksFromFile(datosdatos).then((resultados) => {console.log("status", resultados)})  
+    })
 
 //validate links
 // href:
