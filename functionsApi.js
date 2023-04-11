@@ -1,39 +1,25 @@
-// //se importa node file system module, interact with the file system. para acceder a los metodos   
 // work synchronously by appending Sync *
 
 const fs = require('fs');
-//se importa node path module
 const path = require('path');
 
-
-//para saber si una ruta existe fs.existsSync(path) retorna un booleano// fs.exists deprecated
 function isAexistingPath(docpath) {
     return fs.existsSync(docpath);
 };
-//console.log(isAexistingPath('README.md')) //pruebauno\archivoprueba.md
 
-//para saber si es una ruta absoluta path.isAbsolute(path) retorna un booleano
 function isAbsolutePath(docpath) {
     return path.isAbsolute(docpath)
-
 };
-// console.log(isAbsolutePath('/archivoprueba.md'));
 
-// convertir la ruta relativa a absoluta  retorna string path.resolve 
 function convertToAbsolute(docpath) {
     return path.resolve(docpath)
 };
-//console.log(convertToAbsolute('./pruebauno/archivoprueba.md')); // ubicar bien la carpeta
 
-//obtiene la extension del archivo retorna string path.extname(path)
 function fileExtension(docpath) {
     return path.extname(docpath) === '.md';
 };
-// console.log(fileExtension('./pruebauno/archivoprueba.md'))
-// console.log(fileExtension('./pruebauno/falso.js'))
 
 //leer archivo fs.readFile (path[, encoding options], callback)  ‘utf8’.
-//optimizar codigo function(error data)
 function readFiles(docpath) {
     return new Promise((resolve, reject) => {
         fs.readFile(docpath, 'utf8', (error, data) => {
@@ -48,7 +34,6 @@ function readFiles(docpath) {
     })
 
 };
-//readFiles('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((data) => console.log(data))
 
 const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
     const arrayOfLinks = []; //array vacio para almacenar los link extraidos
@@ -76,7 +61,6 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
 });
 //getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
 //promesas anidadas
-// //debe tomar el array de links? tomo objetos en vez de array ? // map para nuevo array o forEach
 // prueba  array vacio,  const link = getLinksFromFile(docpath) 
 
 const validateLinksFromFile = (arrayLinks) => {
@@ -92,13 +76,13 @@ const validateLinksFromFile = (arrayLinks) => {
 
                 };
                 return status;
-            }).catch((error) => {
+            }).catch((errorLink) => {
                 const statusError = {
                     href: link.href,
                     file: link.file,
                     text: link.text,
-                    status: error.status ,
-                    message: 'fail',
+                    status: errorLink.statusError, //|| 400, //corregir errorLink.message
+                    message: 'Fail',
 
                 };
                 return statusError;
@@ -107,18 +91,13 @@ const validateLinksFromFile = (arrayLinks) => {
     return Promise.all(getStatus);
 };
 //promesas anidadas
-getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
-    .then((datosdatos) => {
-        console.log(" es", datosdatos)
-        validateLinksFromFile(datosdatos).then((resultados) => {console.log("status", resultados)})  
-    })
+// getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
+//     .then((datosdatos) => {
+//         console.log(" es", datosdatos)
+//         validateLinksFromFile(datosdatos).then((resultados) => { console.log('retorno ', resultados) })
+//             //.catch(errorLink => console.log('ESTO ES ERROR', errorLink))
+//     })
 
-//validate links
-// href:
-// text: 
-// file:
-// status: 
-// message:
 
 //saber si es un directorio fs.lstatSync o fs.statSync .isDirectory
 
@@ -139,6 +118,6 @@ module.exports = {
     fileExtension,
     readFiles,
     getLinksFromFile,
-
+    validateLinksFromFile,
     //aqui se indican las rutas que se estan exportando para luego usar en mdlinks
 };
