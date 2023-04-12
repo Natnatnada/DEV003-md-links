@@ -6,7 +6,9 @@ const { isAexistingPath,
   fileExtension,
   isDirectory,
   readDirContent,
-  getLinksFromFile
+  readFiles,
+  getLinksFromFile,
+  validateLinksFromFile
 } = require('../functionsApi')
 
 describe('isAexistingPath', () => {
@@ -48,13 +50,28 @@ describe('fileExtension', () => {
   });
 });
 
+describe('readFiles', () => {
+  it('Deberia rechazar  al intentar leer archivo no valido', () => {
+    const path = 'C:\\Laboratoria'
+    const text = "ENOENT: no such file or directory, open 'C:\\Laboratoria'"
+    return readFiles(path).catch(error => {
+      expect(error.message).toEqual(text)
+    })
+  })
+})
+//
 describe('getLinksFromFile', () => {
   it('Deberia extrar los enlaces http de archivos .md', () => {
-    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md';
     const testLink = [
       {
         text: 'Node Fs module',
-        href: 'http://bit.ly/42PEvGE',
+        href: 'http://bit.ly/42PEvGEsss',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      },
+      {
+        text: 'Prueba error',
+        href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
       },
       {
@@ -71,6 +88,11 @@ describe('getLinksFromFile', () => {
         text: 'Using the File System module (‘fs’) in Node.js',
         href: 'http://bit.ly/3Zygdyn',
         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
+      },
+      {
+        text: 'Prueba error dos',
+        href: 'https://developer./',
+        file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md'
       }
     ]
     return getLinksFromFile(path).then(link => {
@@ -78,9 +100,71 @@ describe('getLinksFromFile', () => {
     })
 
     //promesa then ?
+
   });
+  it('Deberia rechazar  al intentar extraer links de archivos no validos', () => {
+    const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js'
+    const text = "ENOENT: no such file or directory, open 'C:\\Laboratoria Proyectos\\DEV003-md-links\\Laboratoria ProyectosDEV003-md-linkspruebauno♀also.js'"
+    return getLinksFromFile(path).catch(error => {
+      expect(error.message).toEqual(text)
+    })
+  })
+  //it('Deberia retornar error con un path relativo')
 });
 
+// describe('validateLinksFromFile',() =>{
+//   it('Debería extraer  los enlaces http de los archivos con su status', ()=> {
+//     const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md';
+//     const testLink= [
+//       {
+//         href: 'http://bit.ly/42PEvGEsss',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'Node Fs module',
+//         status: 404,
+//         message: 'Ok'
+//       },
+//       {
+//         href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'Prueba error',
+//         status: 404,
+//         message: 'Ok'
+//       },
+//       {
+//         href: 'https://bit.ly/3Kgry1C',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'Node Path module',
+//         status: 200,
+//         message: 'Ok'
+//       },
+//       {
+//         href: 'https://google.com',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'otherLink',
+//         status: 200,
+//         message: 'Ok'
+//       },
+//       {
+//         href: 'http://bit.ly/3Zygdyn',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'Using the File System module (‘fs’) in Node.js',
+//         status: 200,
+//         message: 'Ok'
+//       },
+//       {
+//         href: 'https://developer./',
+//         file: 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md',
+//         text: 'Prueba error dos',
+//         status: 400,
+//         message: 'Fail'
+//       }
+//     ]
+//     return validateLinksFromFile(path).then(link=>{
+//       expect(link).toEqual(testLink)
+
+//     })
+//   })
+// })
 // describe('isDirectory', () => {
 //   it('Deberia retornar true', () => {
 //     const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'

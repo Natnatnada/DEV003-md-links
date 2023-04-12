@@ -19,6 +19,7 @@ function fileExtension(docpath) {
     return path.extname(docpath) === '.md';
 };
 
+
 //leer archivo fs.readFile (path[, encoding options], callback)  ‘utf8’.
 function readFiles(docpath) {
     return new Promise((resolve, reject) => {
@@ -34,6 +35,7 @@ function readFiles(docpath) {
     })
 
 };
+
 
 const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
     const arrayOfLinks = []; //array vacio para almacenar los link extraidos
@@ -59,6 +61,9 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
         })
         .catch((error) => reject(error));
 });
+getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js').then((datosdatos) => console.log(" es", datosdatos))
+
+
 //getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
 //promesas anidadas
 // prueba  array vacio,  const link = getLinksFromFile(docpath) 
@@ -81,7 +86,7 @@ const validateLinksFromFile = (arrayLinks) => {
                     href: link.href,
                     file: link.file,
                     text: link.text,
-                    status: errorLink.statusError, //|| 400, //corregir errorLink.message
+                    status: errorLink.statusError || 400,//corregir 404
                     message: 'Fail',
 
                 };
@@ -91,6 +96,7 @@ const validateLinksFromFile = (arrayLinks) => {
     return Promise.all(getStatus);
 };
 //promesas anidadas
+
 // getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
 //     .then((datosdatos) => {
 //         console.log(" es", datosdatos)
