@@ -51,7 +51,7 @@ describe('fileExtension', () => {
 });
 
 describe('readFiles', () => {
-  it('Deberia rechazar  al intentar leer archivo no valido', () => {
+  it('Deberia rechazar al intentar leer archivo no existente', () => {
     const path = 'C:\\Laboratoria'
     const text = "ENOENT: no such file or directory, open 'C:\\Laboratoria'"
     return readFiles(path).catch(error => {
