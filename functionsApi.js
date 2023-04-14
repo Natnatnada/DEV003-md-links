@@ -61,12 +61,7 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
         })
         .catch((error) => reject(error));
 });
-getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js').then((datosdatos) => console.log(" es", datosdatos))
-
-
-//getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md').then((datosdatos) => console.log(" es", datosdatos))
-//promesas anidadas
-// prueba  array vacio,  const link = getLinksFromFile(docpath) 
+//getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js').then((datosdatos) => console.log(datosdatos))
 
 const validateLinksFromFile = (arrayLinks) => {
     const getStatus = arrayLinks.map((link) => {
@@ -97,26 +92,6 @@ const validateLinksFromFile = (arrayLinks) => {
 };
 //promesas anidadas
 
-// getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md')
-//     .then((datosdatos) => {
-//         console.log(" es", datosdatos)
-//         validateLinksFromFile(datosdatos).then((resultados) => { console.log('retorno ', resultados) })
-//             //.catch(errorLink => console.log('ESTO ES ERROR', errorLink))
-//     })
-
-
-//saber si es un directorio fs.lstatSync o fs.statSync .isDirectory
-
-// function isDirectory(docpath) {
-//     return fs.statSync(docpath).isDirectory()
-
-// }
-//console.log(isDirectory('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno'))
-
-//recorrer directorio en busca de archivos
-//extraer los archivos ?
-
-
 module.exports = {
     isAexistingPath,
     isAbsolutePath,
@@ -125,5 +100,5 @@ module.exports = {
     readFiles,
     getLinksFromFile,
     validateLinksFromFile,
-    //aqui se indican las rutas que se estan exportando para luego usar en mdlinks
+
 };
