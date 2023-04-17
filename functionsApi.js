@@ -19,7 +19,6 @@ function fileExtension(docpath) {
     return path.extname(docpath) === '.md';
 };
 
-
 //leer archivo fs.readFile (path[, encoding options], callback)  ‘utf8’.
 function readFiles(docpath) {
     return new Promise((resolve, reject) => {
@@ -35,7 +34,6 @@ function readFiles(docpath) {
     })
 
 };
-
 
 const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
     const arrayOfLinks = []; //array vacio para almacenar los link extraidos
@@ -92,6 +90,20 @@ const validateLinksFromFile = (arrayLinks) => {
 };
 //promesas anidadas
 
+
+// Links totales
+const totalStatus = (links) => {
+    const totalLinkStatus = links.length; //
+    return (totalLinkStatus);
+  };
+  // Links rotos
+  const failStatus = (links) => {
+    const failLinks = links.filter((link) => link.message === 'fail'); //determino que message para filtro
+    return (failLinks.length);
+  };
+  console.log()
+
+
 module.exports = {
     isAexistingPath,
     isAbsolutePath,
@@ -100,5 +112,8 @@ module.exports = {
     readFiles,
     getLinksFromFile,
     validateLinksFromFile,
+    totalStatus,
+    failStatus,
+    //uniStatus,
 
 };

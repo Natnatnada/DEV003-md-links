@@ -22,7 +22,7 @@ const mdLinks = (path, opt) => {
     if (fileExtension(toAbsolute) === false) {
       reject('No es md, rechaza')
     }
-   
+
     if (opt.validate) {
       getLinksFromFile(toAbsolute).then((respuesta) => {
         validateLinksFromFile(respuesta).then((retornovalidado) => {
@@ -33,14 +33,15 @@ const mdLinks = (path, opt) => {
             console.log('prueba error ', error)
           });
       })
-    } // else{resolve getLinksFromFile(path).then((respuesta) //retorna links sin validar}
+    } else getLinksFromFile(toAbsolute).then((validateLinksFromFile) => {
+      reject(validateLinksFromFile) //si no se quiere validar retorna links no validados //antes resolve malos
+    })
+  })
 
-    //stats pendiente
 
-  });
+};
 
-}
-mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: true })
+mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: false })
   .then((final) => {
     (final)
   })
