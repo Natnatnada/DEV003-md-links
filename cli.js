@@ -6,7 +6,6 @@ const {
     failStatus,
 } = require('./functionsApi');
 
-
 //Elements 0 and 1 are not "arguments" from the script's point of view, but they are for the shell that
 // invoked the script.
 // So
@@ -28,26 +27,53 @@ const {
 
 
 const path = process.argv[2]; //asigna argumentos que pasan por la linea de comando, en este caso la ruta,
-const opt = { validate: true }; //{ validate: true } { validate: validate };
-const validate = process.argv.includes('--validate') || opt.includes('--v')
-const stats = process.argv.includes('--stats')// || opt.includes('--s')
-
-mdLinks(path, opt).then(result => {
+const validate = process.argv.includes('--validate');
+const stats = process.argv.includes('--stats');
+const option = { validate, stats}
+mdLinks(path, option).then(result => {
+    //const links = result
     //if path.length es 0, console.log debes ingresa una ruta
-    const links = result
-    if (validate) {
-        console.log(links) //deberian retornar loslinks resueltos?
-    } else if (validate && stats) {
+    // if (path.length === 0) {
+    //     console.log('Debes ingresar una ruta ')
+    // }
+    if (option=== stats) {
+        // console.log(`Link totales encontrados ${totalStatus(links)}`);
+        // console.log(`Links con status fail ${failStatus(links)}`);
+        const total= result.length
+        console.log('total', total)
+
+    } else if (option === validate && option === stats) {
+        // console.log(links)
+        // console.log(`Link totales encontrados ${totalStatus(links)}`);
+        // console.log(`Links con status fail ${failStatus(links)}`);
+    } else if(option ===validate){
         console.log(links)
-        // console.log(`Link totales encontrados ${totalStatus(result)}`);
-        // console.log(`Links con status fail ${failStatus(result)}`);
-    } else if (stats) {
-        // console.log(`Link totales encontrados ${totalStatus(result)}`);
-        // console.log(`Links con status fail ${failStatus(result)}`);
     }
 }).catch(error => {
     console.log(error)
 })
+//corregir comentarios
+//normalize node 
+//tomar la ruta y la que ingresa que sea absoluta.
+
+
+// mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: true }).then((final) => {
+//     (final)
+//   })
+//     .catch((error) => console.log(error))
+
+    // (validate) {
+    //     console.log(links) //deberian retornar los links resueltos?
+    // } else if (validate && stats) {
+    //     console.log(links)
+    //     // console.log(`Link totales encontrados ${totalStatus(result)}`);
+    //     // console.log(`Links con status fail ${failStatus(result)}`);
+    // } else if (stats) {
+    //     // console.log(`Link totales encontrados ${totalStatus(result)}`);
+    //     // console.log(`Links con status fail ${failStatus(result)}`);
+    // } else if (validate === false) {
+    //     console.log(links)
+    // }
 
 // mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: true }).then((final) => {
 //     (final)

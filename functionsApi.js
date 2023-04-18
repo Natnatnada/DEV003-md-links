@@ -1,6 +1,7 @@
 // work synchronously by appending Sync *
-
+// to access and interact with the file system.
 const fs = require('fs');
+//se importan los modulos para trabajar con directorios y rutas
 const path = require('path');
 
 function isAexistingPath(docpath) {
@@ -23,6 +24,7 @@ function fileExtension(docpath) {
 function readFiles(docpath) {
     return new Promise((resolve, reject) => {
         fs.readFile(docpath, 'utf8', (error, data) => {
+            //si da error se rechaza la promesa
             if (error) {
                 console.log('Failed to read file');
                 reject(error)
@@ -32,7 +34,6 @@ function readFiles(docpath) {
             }
         });
     })
-
 };
 
 const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
@@ -40,14 +41,15 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
     //funcion readFiles
     readFiles(docpath)
         //data from readFile
-        .then((data) => {
+        //manejar la resolución de la promes
+        .then((data) => { //valor resuelto de la promesa
             //se define pattern para la obtencion de los links [] y https
-            // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
             const patternLinks = /\[(.+?)\]\((https?:\/\/[^\s]+)\)/g;
+            // exec() function is used to search for a string in a particular string. It is a part of the RegExp object.
             let isAmatch = patternLinks.exec(data);
-            //null si no encuentra coincidencias con isAmatch se ejecuta ciclo
+            //se ejecuta ciclo while mientras que isAmatch no sea null, si no hay mas coincidencia se resuelve
             while (isAmatch !== null) {
-                //
+                //coincidencia capturada por regex
                 arrayOfLinks.push({
                     text: isAmatch[1],
                     href: isAmatch[2],
@@ -57,13 +59,13 @@ const getLinksFromFile = (docpath) => new Promise((resolve, reject) => {
             }
             (resolve(arrayOfLinks));
         })
-        .catch((error) => reject(error));
+        .catch((error) => reject(error)); // test pendiente
 });
 //getLinksFromFile('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js').then((datosdatos) => console.log(datosdatos))
 
-const validateLinksFromFile = (arrayLinks) => {
-    const getStatus = arrayLinks.map((link) => {
-        return fetch(link.href)
+const validateLinksFromFile = (arrayLinks) => { //test pendiente 
+    const getStatus = arrayLinks.map((link) => { //arraynuevo
+        return fetch(link.href) //llamada fetch() con el enlace de referencia  solicitud HTTP, se resuelve la promesa con la respuesta
             .then((resolveLink) => {
                 const status = {
                     href: link.href,
@@ -73,20 +75,21 @@ const validateLinksFromFile = (arrayLinks) => {
                     message: 'Ok',
 
                 };
-                return status;
+                return status; //  valor nuevo array
             }).catch((errorLink) => {
                 const statusError = {
                     href: link.href,
                     file: link.file,
                     text: link.text,
-                    status: errorLink.statusError || 400,//corregir 404
+                    status: errorLink.statusError || 400,//corregir 404, operador ternario 400, 499
                     message: 'Fail',
 
                 };
                 return statusError;
             });
     });
-    return Promise.all(getStatus);
+    return Promise.all(getStatus); //al estar todas las promesas resueltas se devuelven los valores de estas promesas resueltas,
+    //que serian con estados validades incluidos
 };
 //promesas anidadas
 
@@ -95,13 +98,13 @@ const validateLinksFromFile = (arrayLinks) => {
 const totalStatus = (links) => {
     const totalLinkStatus = links.length; //
     return (totalLinkStatus);
-  };
-  // Links rotos
-  const failStatus = (links) => {
+};
+// Links rotos
+const failStatus = (links) => {
     const failLinks = links.filter((link) => link.message === 'fail'); //determino que message para filtro
     return (failLinks.length);
-  };
-  console.log()
+};
+
 
 
 module.exports = {
@@ -114,6 +117,5 @@ module.exports = {
     validateLinksFromFile,
     totalStatus,
     failStatus,
-    //uniStatus,
 
 };

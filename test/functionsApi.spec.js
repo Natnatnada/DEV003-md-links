@@ -4,8 +4,8 @@ const { isAexistingPath,
   isAbsolutePath,
   convertToAbsolute,
   fileExtension,
-  isDirectory,
-  readDirContent,
+  // isDirectory,
+  // readDirContent,
   readFiles,
   getLinksFromFile,
   validateLinksFromFile
@@ -112,6 +112,7 @@ describe('getLinksFromFile', () => {
   //it('Deberia retornar error con un path relativo')
 });
 
+//mock de fetch 
 // describe('validateLinksFromFile',() =>{
 //   it('Debería extraer  los enlaces http de los archivos con su status', ()=> {
 //     const path = 'C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md';
