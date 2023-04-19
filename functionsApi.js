@@ -26,7 +26,7 @@ function readFiles(docpath) {
         fs.readFile(docpath, 'utf8', (error, data) => {
             //si da error se rechaza la promesa
             if (error) {
-                console.log('Failed to read file');
+               // console.log('Failed to read file');
                 reject(error)
             } else {
                 //console.log('1', data);
@@ -97,12 +97,16 @@ const validateLinksFromFile = (arrayLinks) => { //test pendiente
 // Links totales
 const totalStatus = (links) => {
     const totalLinkStatus = links.length; //
-    return (totalLinkStatus);
+    return totalLinkStatus;
 };
 // Links rotos
 const failStatus = (links) => {
-    const failLinks = links.filter((link) => link.message === 'fail'); //determino que message para filtro
+    const failLinks = links.filter((link) => link.message === 'Fail'); //determino que message para filtro
     return (failLinks.length);
+};
+const okStatus = (links) => {
+    const okLinks = links.filter((link) => link.message === 'Ok'); //determino que message para filtro
+    return (okLinks.length);
 };
 
 
@@ -117,5 +121,6 @@ module.exports = {
     validateLinksFromFile,
     totalStatus,
     failStatus,
+    okStatus,
 
 };

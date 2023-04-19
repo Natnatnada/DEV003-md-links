@@ -28,29 +28,28 @@ const mdLinks = (path, opt) => {
       getLinksFromFile(toAbsolute).then((respuesta) => {
         validateLinksFromFile(respuesta).then((retornovalidado) => {
           resolve(retornovalidado)
-          console.log("prueba de que se cumple la promesa y se obtienen links validados, ", retornovalidado)
+          //console.log(retornovalidado)
         })
           .catch((error) => {
-            console.log('prueba error', error)
           });
       })
     } else getLinksFromFile(toAbsolute).then((respuesta) => {
       resolve(respuesta)
-      console.log(respuesta) //si no se quiere validar retorna links no validados //antesreject malos
+    //console.log(respuesta) //si no se quiere validar retorna links no validados //antesreject malos
     })
   })
 };
 
-mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: false })
-  .then((final) => {
-    (final)
-  })
-  // mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js', { validate: true })
-  // .then((final) => {
-  //   (final)
-  // })
+// mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\archivoprueba.md', { validate: true })
+//   .then((final) => {
+//     (final)
+//   })
+//   // mdLinks('C:\\Laboratoria Proyectos\\DEV003-md-links\\pruebauno\\falso.js', { validate: true })
+//   // .then((final) => {
+//   //   (final)
+//   // })
 
-  .catch((error) => console.log(error))
+//   .catch((error) => console.log(error))
 //se exporta el modulo
 module.exports = {
   mdLinks
